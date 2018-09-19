@@ -29,7 +29,7 @@ allprojects {
         kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
 
         // Dependency injection
-        daggerVersion = '2.7'
+        daggerVersion = '2.11'
         daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
         dagger = "com.google.dagger:dagger:$daggerVersion"
         javax = "javax.inject:javax.inject:1"

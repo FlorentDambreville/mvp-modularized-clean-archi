@@ -35,8 +35,12 @@ dependencies {
 
     implementation parent.ext.kotlin
     implementation parent.ext.rxJava
+
+    // Android Support
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     implementation "com.android.support:support-v4:$androidSupportVersion"
+    implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
+    implementation "com.android.support:cardview-v7:$androidSupportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 
     // Retrofit
@@ -52,6 +56,7 @@ dependencies {
     implementation parent.ext.dagger
     kapt parent.ext.daggerCompiler
 
+    // Test
     testImplementation parent.ext.jUnit
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
