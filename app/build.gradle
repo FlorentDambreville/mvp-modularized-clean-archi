@@ -33,15 +33,26 @@ dependencies {
     implementation project(':interface-adapter')
     implementation project(':use-case')
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation parent.ext.kotlin
+    implementation parent.ext.rxJava
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
+    implementation "com.android.support:support-v4:$androidSupportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:support-v4:27.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    // Retrofit
+    implementation parent.ext.retrofit
+    implementation (parent.ext.retrofitAdapter) {
+        exclude group: "com.squareup.retrofit2:retrofit"
+        exclude group: "io.reactivex.rxjava2:rxjava"
+    }
+    implementation parent.ext.okHttpLogging
+    implementation parent.ext.retrofitGsonConverter
 
     // Dagger
     implementation parent.ext.dagger
     kapt parent.ext.daggerCompiler
+
+    testImplementation parent.ext.jUnit
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }

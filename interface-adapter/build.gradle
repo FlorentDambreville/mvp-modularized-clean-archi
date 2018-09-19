@@ -31,11 +31,20 @@ dependencies {
     implementation project(':entity')
     implementation project(':use-case')
 
-    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+    implementation "com.android.support:appcompat-v7:$androidSupportVersion"
+
+    // RxJava
+    implementation parent.ext.rxJava
+    implementation parent.ext.rxAndroid
+
+    // Dagger
+    implementation parent.ext.dagger
+    kapt parent.ext.daggerCompiler
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
     mavenCentral()

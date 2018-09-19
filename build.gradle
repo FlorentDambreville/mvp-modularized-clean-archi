@@ -1,15 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.70'
-    ext.kotlin_version = '1.2.50'
+    ext.kotlinVersion = '1.2.70'
     repositories {
         google()
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.1.4'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,11 +22,35 @@ allprojects {
     }
 
     ext {
+        // Android
+        androidSupportVersion = '27.1.1'
+
+        // Kotlin
+        kotlin = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
+
         // Dependency injection
         daggerVersion = '2.7'
         daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
         dagger = "com.google.dagger:dagger:$daggerVersion"
         javax = "javax.inject:javax.inject:1"
+
+        // RxJava
+        rxJavaVersion = '2.1.9'
+        rxJava = "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+
+        // RxAndroid
+        rxAndroid = 'io.reactivex.rxjava2:rxandroid:2.0.1'
+
+        // JUnit
+        jUnit = 'junit:junit:4.12'
+
+        // Retrofit
+        retrofitVersion = '2.3.0'
+        okHttpVersion = '3.4.2'
+        retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+        retrofitAdapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
+        okHttpLogging = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
+        retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     }
 }
 

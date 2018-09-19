@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.florangoutang.deezertest.interfaceadapter.AlbumListPresenter
+import com.florangoutang.deezertest.interfaceadapter.AlbumListContract
 import javax.inject.Inject
 
 
@@ -17,7 +17,7 @@ private const val ARG_PARAM2 = "param2"
 
 class AlbumListFragment : Fragment() {
 
-    @Inject lateinit var presenter: AlbumListPresenter
+    @Inject lateinit var presenter: AlbumListContract.Presenter
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
