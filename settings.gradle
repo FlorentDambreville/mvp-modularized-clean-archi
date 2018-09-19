@@ -1,1 +1,1 @@
-include ':app', ':interface-adapter', ':use-case', ':entity', ':interface-adapter'
+include ':app', ':entity', ':interface-adapter', ':use-case'
