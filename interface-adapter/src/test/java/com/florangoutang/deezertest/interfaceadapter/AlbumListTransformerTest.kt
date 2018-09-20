@@ -20,12 +20,7 @@ class AlbumListTransformerTest {
             on { coverUrl } doReturn "deezer are the best"
         }
         val albumRemote = mock<AlbumRemoteModel> {
-            on { data } doReturn albumData
-        }
-
-        val expectedAlbum = mock<Album>() {
-            on { id } doReturn 123
-            on { coverUrl } doReturn "deezer are the best"
+            on { data } doReturn listOf(albumData)
         }
 
         // When
@@ -33,7 +28,7 @@ class AlbumListTransformerTest {
 
         // Then
         assertThat(albumList.size).isEqualTo(1)
-        assertThat(albumList[0]).isEqualTo(expectedAlbum)
+        assertThat(albumList[0]).isEqualTo(Album(123, "deezer are the best"))
 
     }
 }
