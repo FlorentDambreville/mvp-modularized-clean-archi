@@ -33,6 +33,8 @@ allprojects {
         daggerCompiler = "com.google.dagger:dagger-compiler:$daggerVersion"
         dagger = "com.google.dagger:dagger:$daggerVersion"
         javax = "javax.inject:javax.inject:1"
+        daggerAndroid = "com.google.dagger:dagger:$daggerVersion"
+        daggerAndroidSupport = "com.google.dagger:dagger-android-support:$daggerVersion"
 
         // RxJava
         rxJavaVersion = '2.1.9'
@@ -51,6 +53,9 @@ allprojects {
         retrofitAdapter = "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
         okHttpLogging = "com.squareup.okhttp3:logging-interceptor:$okHttpVersion"
         retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+        // Picasso
+        picasso = 'com.squareup.picasso:picasso:2.5.2'
     }
 }
 

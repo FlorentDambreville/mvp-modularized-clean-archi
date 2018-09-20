@@ -1,19 +1,27 @@
-package com.florangoutang.deezertest
+package com.florangoutang.deezertest.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.florangoutang.deezertest.R
 import com.florangoutang.deezertest.interfaceadapter.AlbumListContract
+import com.florangoutang.deezertest.interfaceadapter.model.AlbumViewModel
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_album_list.*
 import javax.inject.Inject
 
-class AlbumListFragment : Fragment() {
+class AlbumListFragment : Fragment(), AlbumListContract.View {
 
-    @Inject
-    lateinit var presenter: AlbumListContract.Presenter
+    @Inject lateinit var presenter: AlbumListContract.Presenter
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        AndroidSupportInjection.inject(this)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,6 +35,7 @@ class AlbumListFragment : Fragment() {
         initAdapter()
         setupRefreshLayout()
 
+        presenter.attachView(this)
         presenter.getAlbumList()
     }
 
@@ -35,9 +44,24 @@ class AlbumListFragment : Fragment() {
         presenter.unsubscribe()
     }
 
+    override fun showAlbumListError() {
+        errorTextView.visibility = View.VISIBLE
+    }
+
+    override fun showLoading(visible: Boolean) {
+        errorTextView.visibility = View.GONE
+        swipeToRefreshLayout.isRefreshing = visible
+    }
+
+    override fun showAlbumList(list: MutableList<AlbumViewModel>) {
+        errorTextView.visibility = View.GONE
+        (albumList.adapter as AlbumListAdapter).albumList = list
+        albumList.adapter.notifyDataSetChanged()
+    }
+
     private fun initAdapter() {
         if (albumList.adapter == null) {
-            albumList.layoutManager = LinearLayoutManager(context)
+            albumList.layoutManager = GridLayoutManager(context, 3)
             albumList.adapter = AlbumListAdapter()
         }
     }

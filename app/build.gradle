@@ -54,7 +54,12 @@ dependencies {
 
     // Dagger
     implementation parent.ext.dagger
+    implementation parent.ext.daggerAndroid
+    implementation parent.ext.daggerAndroidSupport
     kapt parent.ext.daggerCompiler
+
+    // Picasso
+    implementation parent.ext.picasso
 
     // Test
     testImplementation parent.ext.jUnit

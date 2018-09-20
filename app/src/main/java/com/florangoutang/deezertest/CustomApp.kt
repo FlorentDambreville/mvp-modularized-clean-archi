@@ -1,11 +1,21 @@
 package com.florangoutang.deezertest
 
+import android.app.Activity
 import android.app.Application
-import com.florangoutang.deezertest.injection.AppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasActivityInjector
+import javax.inject.Inject
 
-class CustomApp : Application() {
+
+class CustomApp : Application(), HasActivityInjector {
+
+    @Inject
+    lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
+
     override fun onCreate() {
         super.onCreate()
-        AppComponent.Initializer.getApplicationComponent(this).inject(this)
     }
+
+    override fun activityInjector(): AndroidInjector<Activity> = activityDispatchingAndroidInjector
 }

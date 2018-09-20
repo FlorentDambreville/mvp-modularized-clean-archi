@@ -1,4 +1,3 @@
 package com.florangoutang.deezertest.interfaceadapter.model
 
-class AlbumViewModel {
-}
+data class AlbumViewModel(val coverUrl : String)
