@@ -11,10 +11,11 @@ import com.florangoutang.deezertest.R
 import com.florangoutang.deezertest.interfaceadapter.AlbumListContract
 import com.florangoutang.deezertest.interfaceadapter.model.AlbumViewModel
 import dagger.android.support.AndroidSupportInjection
+import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_album_list.*
 import javax.inject.Inject
 
-class AlbumListFragment : Fragment(), AlbumListContract.View {
+class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
 
     @Inject lateinit var presenter: AlbumListContract.Presenter
 
