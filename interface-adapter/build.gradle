@@ -4,8 +4,6 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 27
 
-
-
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 27
@@ -42,9 +40,12 @@ dependencies {
     implementation parent.ext.dagger
     kapt parent.ext.daggerCompiler
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    // Test
+    testImplementation parent.ext.jUnit
+    testImplementation parent.ext.mockitoKotlin
+    testImplementation parent.ext.assertj
+    testImplementation parent.ext.mockito
+    testCompile parent.ext.mockitoInline
 }
 repositories {
     mavenCentral()
