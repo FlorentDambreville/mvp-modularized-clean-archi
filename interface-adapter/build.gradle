@@ -40,6 +40,9 @@ dependencies {
     implementation parent.ext.dagger
     kapt parent.ext.daggerCompiler
 
+    // Gson
+    implementation parent.ext.gson
+
     // Test
     testImplementation parent.ext.jUnit
     testImplementation parent.ext.mockitoKotlin
