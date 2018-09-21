@@ -12,7 +12,9 @@
         android:name=".CustomApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:theme="@style/AppTheme.noActionBar"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

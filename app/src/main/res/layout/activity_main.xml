@@ -6,12 +6,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            />
+
+    </android.support.v7.widget.Toolbar>
+
     <fragment
-        android:id="@+id/fragmentContrainer"
+        android:id="@+id/fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:name="com.florangoutang.deezertest.ui.AlbumListFragment"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -44,19 +44,33 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
         presenter.unsubscribe()
     }
 
-    override fun showAlbumListError() {
-        errorTextView.visibility = View.VISIBLE
+    override fun showAlbumListError(message: String?) {
+        setComponentToDisplay(AlbumListComponentVisibility.ERROR_MESSAGE)
+        errorTextView.append("\n")
+        errorTextView.append(message)
     }
 
     override fun showLoading(visible: Boolean) {
-        errorTextView.visibility = View.GONE
         swipeToRefreshLayout.isRefreshing = visible
     }
 
     override fun showAlbumList(list: MutableList<AlbumViewModel>) {
-        errorTextView.visibility = View.GONE
+        setComponentToDisplay(AlbumListComponentVisibility.LIST)
         (albumList.adapter as AlbumListAdapter).albumList = list
         albumList.adapter.notifyDataSetChanged()
+    }
+
+    private fun setComponentToDisplay(componentToDisplay: AlbumListComponentVisibility) {
+        when (componentToDisplay) {
+            AlbumListComponentVisibility.LIST -> {
+                errorTextView.visibility = View.GONE
+                albumList.visibility = View.VISIBLE
+            }
+            AlbumListComponentVisibility.ERROR_MESSAGE -> {
+                errorTextView.visibility = View.VISIBLE
+                albumList.visibility = View.GONE
+            }
+        }
     }
 
     private fun initAdapter() {
@@ -72,4 +86,9 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
             presenter.getAlbumList()
         }
     }
+}
+
+enum class AlbumListComponentVisibility {
+    LIST,
+    ERROR_MESSAGE
 }

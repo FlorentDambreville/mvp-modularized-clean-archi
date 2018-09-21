@@ -7,7 +7,7 @@ import com.florangoutang.deezertest.interfaceadapter.model.AlbumViewModel
 interface AlbumListContract {
 
     interface View : BaseView {
-        fun showAlbumListError()
+        fun showAlbumListError(message: String?)
         fun showLoading(visible: Boolean)
         fun showAlbumList(list: MutableList<AlbumViewModel>)
     }

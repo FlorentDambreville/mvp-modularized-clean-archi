@@ -31,7 +31,7 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor, val transforme
                 },
                         { error: Throwable ->
                             error.printStackTrace()
-                            view?.showAlbumListError()
+                            view?.showAlbumListError(error.message)
 
                         }
                 )
