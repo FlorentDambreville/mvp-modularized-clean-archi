@@ -6,7 +6,9 @@
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeToRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/lightPrimaryColor"
+        >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -16,6 +18,9 @@
                 android:id="@+id/albumList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp"
                 android:visibility="visible" />
 
             <TextView
@@ -25,6 +30,8 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:text="@string/loadind_error_message"
+                android:textColor="@color/primaryText"
+                android:fontFamily="@font/notoserifjp_regular"
                 android:visibility="gone" />
 
         </android.support.constraint.ConstraintLayout>
