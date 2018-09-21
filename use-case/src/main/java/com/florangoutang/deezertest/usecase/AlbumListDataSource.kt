@@ -4,5 +4,5 @@ import com.florangoutang.deezertest.entity.Album
 import io.reactivex.Flowable
 
 interface AlbumListDataSource {
-    fun getAlbumList() : Flowable<List<Album>>
+    fun getAlbumList(offset: Int): Flowable<List<Album>>
 }

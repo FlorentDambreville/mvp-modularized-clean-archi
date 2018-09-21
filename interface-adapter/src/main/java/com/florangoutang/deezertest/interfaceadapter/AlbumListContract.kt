@@ -13,6 +13,6 @@ interface AlbumListContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun getAlbumList()
+        fun getAlbumList(offset: Int = 0)
     }
 }

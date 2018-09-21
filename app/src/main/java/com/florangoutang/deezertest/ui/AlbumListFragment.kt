@@ -56,7 +56,7 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
 
     override fun showAlbumList(list: MutableList<AlbumViewModel>) {
         setComponentToDisplay(AlbumListComponentVisibility.LIST)
-        (albumList.adapter as AlbumListAdapter).albumList = list
+        (albumList.adapter as AlbumListAdapter).albumList.addAll(list)
         albumList.adapter.notifyDataSetChanged()
     }
 
@@ -76,7 +76,7 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     private fun initAdapter() {
         if (albumList.adapter == null) {
             albumList.layoutManager = GridLayoutManager(context, 3)
-            albumList.adapter = AlbumListAdapter()
+            albumList.adapter = AlbumListAdapter { presenter.getAlbumList(it) }
         }
     }
 

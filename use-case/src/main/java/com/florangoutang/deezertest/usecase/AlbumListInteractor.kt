@@ -4,12 +4,12 @@ import com.florangoutang.deezertest.entity.Album
 import io.reactivex.Flowable
 
 interface AlbumListInteractor {
-    fun getAlbumList(): Flowable<List<Album>>
+    fun getAlbumList(offset: Int): Flowable<List<Album>>
 }
 
 class AlbumListInteractorImpl(private val dataSource: AlbumListDataSource) : AlbumListInteractor {
-    override fun getAlbumList(): Flowable<List<Album>> {
-        return dataSource.getAlbumList()
+    override fun getAlbumList(offset: Int): Flowable<List<Album>> {
+        return dataSource.getAlbumList(offset)
     }
 
 }

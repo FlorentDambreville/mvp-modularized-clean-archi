@@ -8,11 +8,12 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface AlbumListRetrofitDataSource {
 
     @GET("/2.0/user/2529/albums")
-    fun fetchAlbumList(): Flowable<AlbumRemoteModel>
+    fun fetchAlbumList(@Query("index") offset: Int): Flowable<AlbumRemoteModel>
 
     class AlbumRetrofitApiBuilder {
 

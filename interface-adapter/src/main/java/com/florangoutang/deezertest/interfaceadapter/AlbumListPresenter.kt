@@ -20,9 +20,9 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor, val transforme
         subscriptions.clear()
     }
 
-    override fun getAlbumList() {
+    override fun getAlbumList(offset: Int) {
         view?.showLoading(true)
-        subscriptions.add(interactor.getAlbumList()
+        subscriptions.add(interactor.getAlbumList(offset)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally { view?.showLoading(false) }

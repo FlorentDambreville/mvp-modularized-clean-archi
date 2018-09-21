@@ -10,7 +10,7 @@ class AlbumListDataSourceImpl @Inject constructor(val transformer : AlbumListTra
 
     private val albumListRetrofitDataSource: AlbumListRetrofitDataSource  by lazy { AlbumListRetrofitDataSource.AlbumRetrofitApiBuilder().getDeezerApi() }
 
-    override fun getAlbumList(): Flowable<List<Album>> {
-        return albumListRetrofitDataSource.fetchAlbumList().map { transformer.albumRemoteToAlbumList(it) }
+    override fun getAlbumList(offset: Int): Flowable<List<Album>> {
+        return albumListRetrofitDataSource.fetchAlbumList(offset).map { transformer.albumRemoteToAlbumList(it) }
     }
 }
