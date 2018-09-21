@@ -7,11 +7,27 @@ import com.florangoutang.deezertest.interfaceadapter.model.AlbumViewModel
 class AlbumListTransformer {
     fun albumRemoteToAlbumList(albumRemoteModel: AlbumRemoteModel): List<Album> {
         val albumList = mutableListOf<Album>()
-        albumRemoteModel.data.forEach { albumList.add(Album(it.id, it.coverUrl)) }
+        albumRemoteModel.data.forEach { albumList.add(Album(it?.id.zeroOrValue(), it?.coverUrl.emptyOrValue())) }
         return albumList
     }
 
     fun albumToAlbumViewModel(album: Album) : AlbumViewModel {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        with(album) {
+            return AlbumViewModel(id, coverUrl)
+        }
+    }
+}
+
+fun Int?.zeroOrValue() : Int {
+    return when(this) {
+        null -> 0
+        else -> this
+    }
+}
+
+fun String?.emptyOrValue() : String {
+    return when(this) {
+        null -> ""
+        else -> this
     }
 }
