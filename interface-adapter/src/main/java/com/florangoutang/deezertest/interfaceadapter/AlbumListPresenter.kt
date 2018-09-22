@@ -12,6 +12,8 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
     override var view: AlbumListContract.View? = null
 
     private val subscriptions: CompositeDisposable = CompositeDisposable()
+    private val objectWantedFromTheAPI = 25
+    private var objectReturnFromAPI = 17
 
     override fun attachView(view: AlbumListContract.View?) {
         this.view = view
@@ -29,6 +31,7 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
                 .doFinally { view?.showLoading(false) }
                 .subscribe({ albumList: List<Album> ->
                     view?.showAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
+                    objectReturnFromAPI = albumList.size
                 },
                         { error: Throwable ->
                             error.printStackTrace()
@@ -40,7 +43,11 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
     }
 
     override fun getNextAlbumListIfNecessary(positionInList: Int, itemCount: Int) {
-        if (positionInList == itemCount - 1) { getAlbumList(itemCount) }
+        if (!isTheEndOfTheApiReached() && positionInList == itemCount - 1) {
+            getAlbumList(itemCount)
+        }
     }
+
+    private fun isTheEndOfTheApiReached() = objectReturnFromAPI < objectWantedFromTheAPI
 
 }
