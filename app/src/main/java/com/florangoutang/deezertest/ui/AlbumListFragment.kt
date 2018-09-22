@@ -56,6 +56,12 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
 
     override fun showAlbumList(list: MutableList<AlbumViewModel>) {
         setComponentToDisplay(AlbumListComponentVisibility.LIST)
+        (albumList.adapter as AlbumListAdapter).albumList = list
+        albumList.adapter.notifyDataSetChanged()
+    }
+
+    override fun addToAlbumList(list: MutableList<AlbumViewModel>) {
+        setComponentToDisplay(AlbumListComponentVisibility.LIST)
         (albumList.adapter as AlbumListAdapter).albumList.addAll(list)
         albumList.adapter.notifyDataSetChanged()
     }
@@ -86,7 +92,7 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     private fun setupRefreshLayout() {
         swipeToRefreshLayout.setColorSchemeResources(R.color.colorPrimary)
         swipeToRefreshLayout.setOnRefreshListener {
-            presenter.getAlbumList()
+            presenter.getAlbumList(reInitList = true)
         }
     }
 }

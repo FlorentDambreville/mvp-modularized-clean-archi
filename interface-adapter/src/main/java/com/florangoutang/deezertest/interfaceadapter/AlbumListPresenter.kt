@@ -24,14 +24,18 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
         subscriptions.clear()
     }
 
-    override fun getAlbumList(offset: Int) {
+    override fun getAlbumList(offset: Int, reInitList: Boolean) {
         view?.showLoading(true)
         subscriptions.add(interactor.getAlbumList(offset)
                 .subscribeOn(schedulersProvider.computation())
                 .observeOn(schedulersProvider.ui())
                 .doFinally { view?.showLoading(false) }
                 .subscribe({ albumList: List<Album> ->
-                    view?.showAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
+                    if (reInitList) {
+                        view?.showAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
+                    } else {
+                        view?.addToAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
+                    }
                     objectReturnFromAPI = albumList.size
                 },
                         { error: Throwable ->
