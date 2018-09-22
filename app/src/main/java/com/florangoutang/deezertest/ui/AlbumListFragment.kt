@@ -76,7 +76,10 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     private fun initAdapter() {
         if (albumList.adapter == null) {
             albumList.layoutManager = GridLayoutManager(context, 3)
-            albumList.adapter = AlbumListAdapter { presenter.getAlbumList(it) }
+            albumList.adapter = AlbumListAdapter {
+                positionInList: Int, itemCount: Int ->
+                presenter.getNextAlbumListIfNecessary(positionInList, itemCount)
+            }
         }
     }
 

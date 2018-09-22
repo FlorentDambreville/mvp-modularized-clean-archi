@@ -34,7 +34,10 @@ dependencies {
     implementation project(':use-case')
 
     implementation parent.ext.kotlin
+
+    // RxJava
     implementation parent.ext.rxJava
+    implementation parent.ext.rxAndroid
 
     // Android Support
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"

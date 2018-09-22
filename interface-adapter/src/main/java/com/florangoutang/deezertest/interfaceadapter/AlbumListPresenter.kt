@@ -1,12 +1,13 @@
 package com.florangoutang.deezertest.interfaceadapter
 
 import com.florangoutang.deezertest.entity.Album
+import com.florangoutang.deezertest.interfaceadapter.util.scheduler.BaseSchedulerProvider
 import com.florangoutang.deezertest.usecase.AlbumListInteractor
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 
-class AlbumListPresenterImpl(val interactor: AlbumListInteractor, val transformer: AlbumListTransformer) : AlbumListContract.Presenter {
+class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
+                             val transformer: AlbumListTransformer,
+                             val schedulersProvider : BaseSchedulerProvider) : AlbumListContract.Presenter {
 
     override var view: AlbumListContract.View? = null
 
@@ -23,8 +24,8 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor, val transforme
     override fun getAlbumList(offset: Int) {
         view?.showLoading(true)
         subscriptions.add(interactor.getAlbumList(offset)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(schedulersProvider.computation())
+                .observeOn(schedulersProvider.ui())
                 .doFinally { view?.showLoading(false) }
                 .subscribe({ albumList: List<Album> ->
                     view?.showAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
@@ -36,6 +37,10 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor, val transforme
                         }
                 )
         )
+    }
+
+    override fun getNextAlbumListIfNecessary(positionInList: Int, itemCount: Int) {
+        if (positionInList == itemCount - 1) { getAlbumList(itemCount) }
     }
 
 }

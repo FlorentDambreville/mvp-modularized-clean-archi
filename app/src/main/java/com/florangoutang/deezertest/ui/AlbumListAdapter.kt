@@ -9,14 +9,14 @@ import com.florangoutang.deezertest.util.inflateFromParent
 import com.florangoutang.deezertest.util.loadUrl
 import kotlinx.android.synthetic.main.album_card.view.*
 
-class AlbumListAdapter(private val onEndReached: (Int) -> Unit) : RecyclerView.Adapter<AlbumListCardViewHolder>() {
+class AlbumListAdapter(private val currentPositionInList: (Int, Int) -> Unit) : RecyclerView.Adapter<AlbumListCardViewHolder>() {
 
     var albumList = mutableListOf<AlbumViewModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = AlbumListCardViewHolder(parent)
 
     override fun onBindViewHolder(holder: AlbumListCardViewHolder, position: Int) {
-        if (position == itemCount - 1) { onEndReached.invoke(itemCount) }
+        currentPositionInList(position, itemCount)
         holder.bind(albumList[position])
     }
 

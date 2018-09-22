@@ -14,5 +14,6 @@ interface AlbumListContract {
 
     interface Presenter : BasePresenter<View> {
         fun getAlbumList(offset: Int = 0)
+        fun getNextAlbumListIfNecessary(positionInList: Int, itemCount: Int)
     }
 }

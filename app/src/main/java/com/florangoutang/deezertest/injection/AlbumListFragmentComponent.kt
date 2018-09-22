@@ -5,6 +5,7 @@ import dagger.Subcomponent
 import dagger.android.AndroidInjector
 import javax.inject.Singleton
 
+@Singleton
 @Subcomponent(modules = [AlbumListFragmentModule::class])
 interface AlbumListFragmentComponent : AndroidInjector<AlbumListFragment> {
 

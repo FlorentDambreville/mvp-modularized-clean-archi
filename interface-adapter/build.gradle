@@ -48,7 +48,7 @@ dependencies {
     testImplementation parent.ext.mockitoKotlin
     testImplementation parent.ext.assertj
     testImplementation parent.ext.mockito
-    testCompile parent.ext.mockitoInline
+    testImplementation parent.ext.mockitoInline
 }
 repositories {
     mavenCentral()
