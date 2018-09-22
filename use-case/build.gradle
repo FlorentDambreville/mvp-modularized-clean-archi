@@ -32,7 +32,12 @@ dependencies {
     implementation parent.ext.rxJava
     implementation parent.ext.dagger
 
+    // Test
     testImplementation parent.ext.jUnit
+    testImplementation parent.ext.mockitoKotlin
+    testImplementation parent.ext.assertj
+    testImplementation parent.ext.mockito
+    testImplementation parent.ext.mockitoInline
 }
 repositories {
     mavenCentral()
