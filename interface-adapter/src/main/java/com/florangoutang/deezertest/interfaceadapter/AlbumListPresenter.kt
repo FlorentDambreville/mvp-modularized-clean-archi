@@ -12,8 +12,9 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
     override var view: AlbumListContract.View? = null
 
     private val subscriptions: CompositeDisposable = CompositeDisposable()
-    private val objectWantedFromTheAPI = 25
-    private var objectReturnFromAPI = 17
+    private val errorThrowTransformProcessAuthorized = 2
+    private val objectWantedFromTheAPI = 25 - errorThrowTransformProcessAuthorized
+    private var objectReturnFromAPI = 0
 
     override fun attachView(view: AlbumListContract.View?) {
         this.view = view
