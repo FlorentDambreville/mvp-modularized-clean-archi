@@ -1,8 +1,6 @@
 <resources>
-    <string name="app_name">Deezer</string>
+    <string name="app_name">Deezer Light</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="album_image">album image</string>
     <string name="loadind_error_message">Erreur de chargement des données</string>
 </resources>

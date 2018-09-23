@@ -2,13 +2,13 @@ package com.florangoutang.deezertest.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.florangoutang.deezertest.R
+import dagger.android.support.DaggerFragment
 
-class AlbumDetailFragment : Fragment() {
+class AlbumDetailFragment : DaggerFragment() {
 
     private var albumId : Int? = null
 

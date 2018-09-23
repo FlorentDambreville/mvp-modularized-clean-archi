@@ -7,7 +7,10 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(subcomponents = [MainActivityComponent::class, AlbumListFragmentComponent::class])
+@Module(subcomponents = [MainActivityComponent::class,
+    AlbumListFragmentComponent::class,
+    AlbumDetailFragmentComponent::class
+])
 class ApplicationModule {
     @Provides
     @Singleton

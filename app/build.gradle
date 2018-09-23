@@ -21,49 +21,42 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility 1.8
-        targetCompatibility 1.8
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':entity')
     implementation project(':interface-adapter')
     implementation project(':use-case')
-
     implementation parent.ext.kotlin
-
     // RxJava
     implementation parent.ext.rxJava
     implementation parent.ext.rxAndroid
-
     // Android Support
     implementation "com.android.support:appcompat-v7:$androidSupportVersion"
     implementation "com.android.support:support-v4:$androidSupportVersion"
     implementation "com.android.support:recyclerview-v7:$androidSupportVersion"
     implementation "com.android.support:cardview-v7:$androidSupportVersion"
+    implementation "com.android.support:design:$androidSupportVersion"
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-
     // Retrofit
     implementation parent.ext.retrofit
-    implementation (parent.ext.retrofitAdapter) {
+    implementation(parent.ext.retrofitAdapter) {
         exclude group: "com.squareup.retrofit2:retrofit"
         exclude group: "io.reactivex.rxjava2:rxjava"
     }
     implementation parent.ext.okHttpLogging
     implementation parent.ext.retrofitGsonConverter
-
     // Dagger
     implementation parent.ext.dagger
     implementation parent.ext.daggerAndroid
     implementation parent.ext.daggerAndroidSupport
     kapt parent.ext.daggerCompiler
-
     // Picasso
     implementation parent.ext.picasso
-
     // Test
     testImplementation parent.ext.jUnit
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
