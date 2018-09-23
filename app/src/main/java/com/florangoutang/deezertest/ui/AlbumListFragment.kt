@@ -16,16 +16,23 @@ import javax.inject.Inject
 
 class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
 
-    @Inject lateinit var presenter: AlbumListContract.Presenter
+    @Inject
+    lateinit var presenter: AlbumListContract.Presenter
+    private var listener: OnFragmentInteractionListener? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+
+        if (context is OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_album_list, container, false)
     }
 
@@ -42,6 +49,7 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     override fun onDetach() {
         super.onDetach()
         presenter.unsubscribe()
+        listener = null
     }
 
     override fun showAlbumListError(message: String?) {
@@ -66,6 +74,7 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
         albumList.adapter.notifyDataSetChanged()
     }
 
+
     private fun setComponentToDisplay(componentToDisplay: AlbumListComponentVisibility) {
         when (componentToDisplay) {
             AlbumListComponentVisibility.LIST -> {
@@ -82,8 +91,12 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     private fun initAdapter() {
         if (albumList.adapter == null) {
             albumList.layoutManager = GridLayoutManager(context, 3)
-            albumList.adapter = AlbumListAdapter {
-                positionInList: Int, itemCount: Int ->
+            albumList.adapter = AlbumListAdapter(object : OnAlbumClickedListener {
+                override fun onAlbumClicked(albumId: Int) {
+                    listener?.onFragmentInteraction(albumId)
+                }
+            })
+            { positionInList: Int, itemCount: Int ->
                 presenter.getNextAlbumListIfNecessary(positionInList, itemCount)
             }
         }
@@ -94,6 +107,25 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
         swipeToRefreshLayout.setOnRefreshListener {
             presenter.getAlbumList(reInitList = true)
         }
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     *
+     *
+     * See the Android Training lesson [Communicating with Other Fragments]
+     * (http://developer.android.com/training/basics/fragments/communicating.html)
+     * for more information.
+     */
+    interface OnFragmentInteractionListener {
+        fun onFragmentInteraction(albumId: Int)
+    }
+
+    interface OnAlbumClickedListener {
+        fun onAlbumClicked(albumId: Int)
     }
 }
 

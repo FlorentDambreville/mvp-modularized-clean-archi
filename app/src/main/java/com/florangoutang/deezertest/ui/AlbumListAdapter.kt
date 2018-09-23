@@ -9,7 +9,8 @@ import com.florangoutang.deezertest.util.inflateFromParent
 import com.florangoutang.deezertest.util.loadUrl
 import kotlinx.android.synthetic.main.album_card.view.*
 
-class AlbumListAdapter(private val currentPositionInList: (Int, Int) -> Unit) : RecyclerView.Adapter<AlbumListCardViewHolder>() {
+class AlbumListAdapter(private val onAlbumClickedListener: AlbumListFragment.OnAlbumClickedListener,
+                       private val currentPositionInList: (Int, Int) -> Unit) : RecyclerView.Adapter<AlbumListCardViewHolder>() {
 
     var albumList = mutableListOf<AlbumViewModel>()
 
@@ -17,14 +18,15 @@ class AlbumListAdapter(private val currentPositionInList: (Int, Int) -> Unit) : 
 
     override fun onBindViewHolder(holder: AlbumListCardViewHolder, position: Int) {
         currentPositionInList(position, itemCount)
-        holder.bind(albumList[position])
+        holder.bind(albumList[position], onAlbumClickedListener)
     }
 
     override fun getItemCount() = albumList.size
 
     class AlbumListCardViewHolder(itemView: ViewGroup) : RecyclerView.ViewHolder(itemView.inflateFromParent(R.layout.album_card)) {
-        fun bind(albumViewModel: AlbumViewModel) = with(itemView) {
+        fun bind(albumViewModel: AlbumViewModel, onAlbumClickedListener: AlbumListFragment.OnAlbumClickedListener) = with(itemView) {
             albumImage.loadUrl(albumViewModel.coverUrl, R.drawable.album_placeholder)
+            albumImage.setOnClickListener { onAlbumClickedListener.onAlbumClicked(albumViewModel.id)}
         }
     }
 }
