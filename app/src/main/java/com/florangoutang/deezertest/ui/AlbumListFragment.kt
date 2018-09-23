@@ -16,24 +16,26 @@ import javax.inject.Inject
 
 class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
 
-    @Inject
-    lateinit var presenter: AlbumListContract.Presenter
+    @Inject lateinit var presenter: AlbumListContract.Presenter
     private var listener: OnFragmentInteractionListener? = null
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
-
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_album_list, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (activity is OnFragmentInteractionListener) {
+            listener = activity as OnFragmentInteractionListener
+        } else {
+            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -46,8 +48,8 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
         presenter.getAlbumList()
     }
 
-    override fun onDetach() {
-        super.onDetach()
+    override fun onDestroyView() {
+        super.onDestroyView()
         presenter.unsubscribe()
         listener = null
     }
