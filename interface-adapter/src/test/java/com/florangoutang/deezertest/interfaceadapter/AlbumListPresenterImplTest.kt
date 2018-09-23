@@ -1,8 +1,11 @@
 package com.florangoutang.deezertest.interfaceadapter
 
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListContract
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListPresenterImpl
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListTransformer
 import com.florangoutang.deezertest.interfaceadapter.util.TestSchedulerProvider
 import com.florangoutang.deezertest.interfaceadapter.util.scheduler.BaseSchedulerProvider
-import com.florangoutang.deezertest.usecase.AlbumListInteractor
+import com.florangoutang.deezertest.usecase.album.list.AlbumListInteractor
 import com.nhaarman.mockitokotlin2.given
 import com.nhaarman.mockitokotlin2.inOrder
 import com.nhaarman.mockitokotlin2.then
@@ -18,7 +21,7 @@ import org.mockito.junit.MockitoJUnitRunner
 class AlbumListPresenterImplTest {
 
     @InjectMocks lateinit var presenter: AlbumListPresenterImpl
-    @Mock lateinit var transformer: AlbumListTransformer
+    @Mock lateinit var mListTransformer: AlbumListTransformer
     @Mock lateinit var interactor: AlbumListInteractor
     @Mock lateinit var schedulerProvider: BaseSchedulerProvider
     @Mock lateinit var view: AlbumListContract.View

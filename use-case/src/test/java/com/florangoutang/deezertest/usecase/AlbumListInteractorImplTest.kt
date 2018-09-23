@@ -1,5 +1,7 @@
 package com.florangoutang.deezertest.usecase
 
+import com.florangoutang.deezertest.usecase.album.list.AlbumListDataSource
+import com.florangoutang.deezertest.usecase.album.list.AlbumListInteractorImpl
 import com.nhaarman.mockitokotlin2.then
 import org.junit.Test
 import org.junit.runner.RunWith

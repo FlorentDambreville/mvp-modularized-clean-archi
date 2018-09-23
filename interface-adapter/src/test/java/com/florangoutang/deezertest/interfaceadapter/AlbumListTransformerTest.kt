@@ -1,7 +1,8 @@
 package com.florangoutang.deezertest.interfaceadapter
 
 import com.florangoutang.deezertest.entity.Album
-import com.florangoutang.deezertest.interfaceadapter.model.AlbumRemoteModel
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListTransformer
+import com.florangoutang.deezertest.interfaceadapter.album.list.model.AlbumListRemoteModel
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import org.assertj.core.api.Assertions.assertThat
@@ -9,22 +10,22 @@ import org.junit.Test
 
 class AlbumListTransformerTest {
 
-    private val albumListTransformer = AlbumListTransformer()
+    private val transformer = AlbumListTransformer()
 
     @Test
     fun `albumRemoteToAlbumList when expected remote model is valid should return albumList with same data as remote model`() {
         // Given
-        val albumData = mock<AlbumRemoteModel.AlbumData> {
+        val albumData = mock<AlbumListRemoteModel.AlbumData> {
             on { id } doReturn 123
             on { title } doReturn "title"
             on { coverUrl } doReturn "deezer are the best"
         }
-        val albumRemote = mock<AlbumRemoteModel> {
+        val albumRemote = mock<AlbumListRemoteModel> {
             on { data } doReturn listOf(albumData)
         }
 
         // When
-        val albumList = albumListTransformer.albumRemoteToAlbumList(albumRemote)
+        val albumList = transformer.albumRemoteToAlbumList(albumRemote)
 
         // Then
         assertThat(albumList.size).isEqualTo(1)
@@ -34,10 +35,10 @@ class AlbumListTransformerTest {
     @Test
     fun `albumRemoteToAlbumList when empty remote model should return empty albumList`() {
         // Given
-        val albumRemote = mock<AlbumRemoteModel>()
+        val albumRemote = mock<AlbumListRemoteModel>()
 
         // When
-        val albumList = albumListTransformer.albumRemoteToAlbumList(albumRemote)
+        val albumList = transformer.albumRemoteToAlbumList(albumRemote)
 
         // Then
         assertThat(albumList.size).isEqualTo(0)
@@ -46,13 +47,13 @@ class AlbumListTransformerTest {
     @Test
     fun `albumRemoteToAlbumList when invalid remote model return albumList with default`() {
         // Given
-        val albumData = mock<AlbumRemoteModel.AlbumData>()
-        val albumRemote = mock<AlbumRemoteModel> {
+        val albumData = mock<AlbumListRemoteModel.AlbumData>()
+        val albumRemote = mock<AlbumListRemoteModel> {
             on { data } doReturn listOf(albumData)
         }
 
         // When
-        val albumList = albumListTransformer.albumRemoteToAlbumList(albumRemote)
+        val albumList = transformer.albumRemoteToAlbumList(albumRemote)
 
         // Then
         assertThat(albumList.size).isEqualTo(1)
@@ -68,7 +69,7 @@ class AlbumListTransformerTest {
         }
 
         // When
-        val albumViewModel = albumListTransformer.albumToAlbumViewModel(album)
+        val albumViewModel = transformer.albumToAlbumListViewModel(album)
 
         // Then
         assertThat(albumViewModel.id).isEqualTo(42)

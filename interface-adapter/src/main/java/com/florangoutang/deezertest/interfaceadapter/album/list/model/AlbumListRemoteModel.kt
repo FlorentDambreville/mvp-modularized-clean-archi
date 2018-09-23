@@ -1,8 +1,8 @@
-package com.florangoutang.deezertest.interfaceadapter.model
+package com.florangoutang.deezertest.interfaceadapter.album.list.model
 
 import com.google.gson.annotations.SerializedName
 
-data class AlbumRemoteModel(val data : List<AlbumData?>) {
+data class AlbumListRemoteModel(val data : List<AlbumData?>) {
 
     data class AlbumData(val id: Int?,
                          val title: String?,

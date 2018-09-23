@@ -1,12 +1,12 @@
-package com.florangoutang.deezertest.interfaceadapter
+package com.florangoutang.deezertest.interfaceadapter.album.list
 
 import com.florangoutang.deezertest.entity.Album
 import com.florangoutang.deezertest.interfaceadapter.util.scheduler.BaseSchedulerProvider
-import com.florangoutang.deezertest.usecase.AlbumListInteractor
+import com.florangoutang.deezertest.usecase.album.list.AlbumListInteractor
 import io.reactivex.disposables.CompositeDisposable
 
 class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
-                             val transformer: AlbumListTransformer,
+                             val listTransformer: AlbumListTransformer,
                              val schedulersProvider : BaseSchedulerProvider) : AlbumListContract.Presenter {
 
     override var view: AlbumListContract.View? = null
@@ -32,9 +32,9 @@ class AlbumListPresenterImpl(val interactor: AlbumListInteractor,
                 .doFinally { view?.showLoading(false) }
                 .subscribe({ albumList: List<Album> ->
                     if (reInitList) {
-                        view?.showAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
+                        view?.showAlbumList(albumList.map { listTransformer.albumToAlbumListViewModel(it) }.toMutableList())
                     } else {
-                        view?.addToAlbumList(albumList.map { transformer.albumToAlbumViewModel(it) }.toMutableList())
+                        view?.addToAlbumList(albumList.map { listTransformer.albumToAlbumListViewModel(it) }.toMutableList())
                     }
                     objectReturnFromAPI = albumList.size
                 },

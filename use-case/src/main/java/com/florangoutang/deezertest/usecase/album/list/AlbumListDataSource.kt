@@ -1,4 +1,4 @@
-package com.florangoutang.deezertest.usecase
+package com.florangoutang.deezertest.usecase.album.list
 
 import com.florangoutang.deezertest.entity.Album
 import io.reactivex.Flowable

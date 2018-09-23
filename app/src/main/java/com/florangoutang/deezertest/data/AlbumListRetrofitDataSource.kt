@@ -1,6 +1,6 @@
 package com.florangoutang.deezertest.data
 
-import com.florangoutang.deezertest.interfaceadapter.model.AlbumRemoteModel
+import com.florangoutang.deezertest.interfaceadapter.album.list.model.AlbumListRemoteModel
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -13,7 +13,7 @@ import retrofit2.http.Query
 interface AlbumListRetrofitDataSource {
 
     @GET("/2.0/user/2529/albums")
-    fun fetchAlbumList(@Query("index") offset: Int): Flowable<AlbumRemoteModel>
+    fun fetchAlbumList(@Query("index") offset: Int): Flowable<AlbumListRemoteModel>
 
     class AlbumRetrofitApiBuilder {
 

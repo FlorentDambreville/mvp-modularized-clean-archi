@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.florangoutang.deezertest.R
-import com.florangoutang.deezertest.interfaceadapter.AlbumListContract
-import com.florangoutang.deezertest.interfaceadapter.model.AlbumViewModel
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListContract
+import com.florangoutang.deezertest.interfaceadapter.album.list.model.AlbumListViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_album_list.*
 import javax.inject.Inject
@@ -62,13 +62,13 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
         swipeToRefreshLayout.isRefreshing = visible
     }
 
-    override fun showAlbumList(list: MutableList<AlbumViewModel>) {
+    override fun showAlbumList(list: MutableList<AlbumListViewModel>) {
         setComponentToDisplay(AlbumListComponentVisibility.LIST)
         (albumList.adapter as AlbumListAdapter).albumList = list
         albumList.adapter.notifyDataSetChanged()
     }
 
-    override fun addToAlbumList(list: MutableList<AlbumViewModel>) {
+    override fun addToAlbumList(list: MutableList<AlbumListViewModel>) {
         setComponentToDisplay(AlbumListComponentVisibility.LIST)
         (albumList.adapter as AlbumListAdapter).albumList.addAll(list)
         albumList.adapter.notifyDataSetChanged()

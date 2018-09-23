@@ -1,15 +1,15 @@
 package com.florangoutang.deezertest.injection
 
 import com.florangoutang.deezertest.data.AlbumListDataSourceImpl
-import com.florangoutang.deezertest.interfaceadapter.AlbumListContract
-import com.florangoutang.deezertest.interfaceadapter.AlbumListPresenterImpl
-import com.florangoutang.deezertest.interfaceadapter.AlbumListTransformer
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListContract
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListPresenterImpl
+import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListTransformer
 import com.florangoutang.deezertest.interfaceadapter.util.scheduler.BaseSchedulerProvider
 import com.florangoutang.deezertest.interfaceadapter.util.scheduler.SchedulerProvider
 import com.florangoutang.deezertest.ui.AlbumListFragment
-import com.florangoutang.deezertest.usecase.AlbumListDataSource
-import com.florangoutang.deezertest.usecase.AlbumListInteractor
-import com.florangoutang.deezertest.usecase.AlbumListInteractorImpl
+import com.florangoutang.deezertest.usecase.album.list.AlbumListDataSource
+import com.florangoutang.deezertest.usecase.album.list.AlbumListInteractor
+import com.florangoutang.deezertest.usecase.album.list.AlbumListInteractorImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -25,9 +25,9 @@ class AlbumListFragmentModule {
 
     @Provides
     fun provideAlbumListPresenter(interactor: AlbumListInteractor,
-                                  transformer: AlbumListTransformer,
+                                  listTransformer: AlbumListTransformer,
                                   schedulerProvider: BaseSchedulerProvider) : AlbumListContract.Presenter {
-        return AlbumListPresenterImpl(interactor, transformer, schedulerProvider)
+        return AlbumListPresenterImpl(interactor, listTransformer, schedulerProvider)
     }
 
     @Singleton
@@ -42,8 +42,8 @@ class AlbumListFragmentModule {
     }
 
     @Provides
-    fun provideAlbumListDataSource(transformer: AlbumListTransformer) : AlbumListDataSource {
-        return AlbumListDataSourceImpl(transformer)
+    fun provideAlbumListDataSource(listTransformer: AlbumListTransformer) : AlbumListDataSource {
+        return AlbumListDataSourceImpl(listTransformer)
     }
 
     @Provides
