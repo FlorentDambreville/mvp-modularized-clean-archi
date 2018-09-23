@@ -11,19 +11,17 @@ class MainActivity : DaggerAppCompatActivity(), AlbumListFragment.OnFragmentInte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(AlbumListFragment())
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, AlbumListFragment())
+                .commit()
     }
 
     override fun onFragmentInteraction(albumId: Int) {
-        replaceFragment(AlbumDetailFragment.newInstance(albumId))
+        val newFragment = AlbumDetailFragment.newInstance(albumId)
+        supportFragmentManager.beginTransaction()
+                .add(R.id.fragmentContainer, newFragment)
+                .addToBackStack(newFragment.tag)
+                .commit()
     }
 
-    private fun replaceFragment(newFragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-
-        transaction.replace(R.id.fragmentContainer, newFragment)
-        transaction.addToBackStack(null)
-
-        transaction.commit()
-    }
 }
