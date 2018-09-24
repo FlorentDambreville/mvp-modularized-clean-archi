@@ -1,13 +1,12 @@
 package com.florangoutang.deezertest.interfaceadapter.album.detail
 
 import com.florangoutang.deezertest.entity.Album
-import com.florangoutang.deezertest.interfaceadapter.album.list.AlbumListTransformer
 import com.florangoutang.deezertest.interfaceadapter.util.scheduler.BaseSchedulerProvider
 import com.florangoutang.deezertest.usecase.album.detail.AlbumDetailInteractor
 import io.reactivex.disposables.CompositeDisposable
 
 class AlbumDetailPresenterImpl(val interactor: AlbumDetailInteractor,
-                               val listTransformer: AlbumDetailTransformer,
+                               val transformer: AlbumDetailTransformer,
                                val schedulersProvider : BaseSchedulerProvider) : AlbumDetailContract.Presenter {
 
     override var view: AlbumDetailContract.View? = null
@@ -24,16 +23,16 @@ class AlbumDetailPresenterImpl(val interactor: AlbumDetailInteractor,
 
     override fun getAlbumDetail(albumId: Int) {
         view?.showLoading(true)
-        subscriptions.add(interactor.getAlbumDetail()
+        subscriptions.add(interactor.getAlbumDetail(albumId)
                 .subscribeOn(schedulersProvider.computation())
                 .observeOn(schedulersProvider.ui())
                 .doFinally { view?.showLoading(false) }
-                .subscribe({ albumList: List<Album> ->
-                    view?.showSongList(albumList.map { listTransformer.albumToAlbumDetailViewModel(it) }.toMutableList())
+                .subscribe({ album: Album ->
+                    view?.showAlbumDetail(transformer.albumToAlbumDetailViewModel(album))
                 },
                         { error: Throwable ->
                             error.printStackTrace()
-                            view?.showSongListError(error.message)
+                            view?.albumDetailError(error.message)
 
                         }
                 )

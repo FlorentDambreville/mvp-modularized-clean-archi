@@ -1,15 +1,15 @@
 package com.florangoutang.deezertest.interfaceadapter.album.detail
 
+import com.florangoutang.deezertest.interfaceadapter.album.detail.model.AlbumDetailViewModel
 import com.florangoutang.deezertest.interfaceadapter.base.BasePresenter
 import com.florangoutang.deezertest.interfaceadapter.base.BaseView
-import com.florangoutang.deezertest.interfaceadapter.album.list.model.AlbumListViewModel
 
 interface AlbumDetailContract {
 
     interface View : BaseView {
-        fun showSongListError(message: String?)
+        fun albumDetailError(message: String?)
         fun showLoading(visible: Boolean)
-        fun showSongList(list: MutableList<AlbumListViewModel>)
+        fun showAlbumDetail(list: AlbumDetailViewModel)
     }
 
     interface Presenter : BasePresenter<View> {

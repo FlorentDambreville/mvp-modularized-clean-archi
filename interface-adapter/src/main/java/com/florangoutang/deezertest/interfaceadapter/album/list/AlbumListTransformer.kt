@@ -9,13 +9,21 @@ import com.florangoutang.deezertest.interfaceadapter.util.zeroOrValue
 class AlbumListTransformer {
     fun albumRemoteToAlbumList(albumListRemoteModel: AlbumListRemoteModel): List<Album> {
         val albumList = mutableListOf<Album>()
-        albumListRemoteModel.data.forEach { albumList.add(Album(it?.id.zeroOrValue(), it?.coverUrl.emptyOrValue())) }
+        albumListRemoteModel.data.forEach {
+            albumList.add(Album(
+                    it?.id.zeroOrValue(),
+                    it?.coverUrl.emptyOrValue(),
+                    it?.title.emptyOrValue(),
+                    it?.artist?.name.emptyOrValue(),
+                    null
+                    ))
+        }
         return albumList
     }
 
-    fun albumToAlbumListViewModel(album: Album) : AlbumListViewModel {
+    fun albumToAlbumListViewModel(album: Album): AlbumListViewModel {
         with(album) {
-            return AlbumListViewModel(id, coverUrl)
+            return AlbumListViewModel(id, coverUrl, title, artistName)
         }
     }
 }

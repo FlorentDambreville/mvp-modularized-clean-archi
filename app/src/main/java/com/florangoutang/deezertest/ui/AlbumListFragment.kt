@@ -18,10 +18,6 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     @Inject lateinit var presenter: AlbumListContract.Presenter
     private var listener: OnFragmentInteractionListener? = null
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_album_list, container, false)
@@ -49,6 +45,7 @@ class AlbumListFragment : DaggerFragment(), AlbumListContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         presenter.unsubscribe()
+        presenter.detachView()
         listener = null
     }
 
