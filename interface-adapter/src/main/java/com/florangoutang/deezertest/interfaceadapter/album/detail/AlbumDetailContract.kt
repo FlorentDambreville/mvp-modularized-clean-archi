@@ -9,7 +9,7 @@ interface AlbumDetailContract {
     interface View : BaseView {
         fun albumDetailError(message: String?)
         fun showLoading(visible: Boolean)
-        fun showAlbumDetail(list: AlbumDetailViewModel)
+        fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel)
     }
 
     interface Presenter : BasePresenter<View> {

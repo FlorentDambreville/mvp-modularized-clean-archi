@@ -8,9 +8,9 @@ import javax.inject.Inject
 
 class AlbumListDataSourceImpl @Inject constructor(val listTransformer : AlbumListTransformer) : AlbumListDataSource {
 
-    private val albumListRetrofitDataSource: AlbumListRetrofitDataSource  by lazy { AlbumListRetrofitDataSource.AlbumRetrofitApiBuilder().getDeezerApi() }
+    private val albumRetrofitDataSource: AlbumRetrofitDataSource  by lazy { AlbumRetrofitDataSource.AlbumRetrofitApiBuilder().getDeezerApi() }
 
     override fun getAlbumList(offset: Int): Flowable<List<Album>> {
-        return albumListRetrofitDataSource.fetchAlbumList(offset).map { listTransformer.albumRemoteToAlbumList(it) }
+        return albumRetrofitDataSource.fetchAlbumList(offset).map { listTransformer.albumRemoteToAlbumList(it) }
     }
 }

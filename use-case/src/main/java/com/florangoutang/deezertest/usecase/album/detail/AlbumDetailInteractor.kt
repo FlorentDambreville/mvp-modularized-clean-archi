@@ -7,7 +7,7 @@ interface AlbumDetailInteractor {
     fun getAlbumDetail(albumId: Int): Flowable<Album>
 }
 
-class AlbumListInteractorImpl(private val dataSource: AlbumDetailDataSource) : AlbumDetailInteractor {
+class AlbumDetailInteractorImpl(private val dataSource: AlbumDetailDataSource) : AlbumDetailInteractor {
     override fun getAlbumDetail(albumId: Int): Flowable<Album> {
         return dataSource.getAlbumDetail(albumId)
     }

@@ -1,13 +1,16 @@
 package com.florangoutang.deezertest.ui
 
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.florangoutang.deezertest.R
 import com.florangoutang.deezertest.interfaceadapter.album.detail.AlbumDetailContract
 import com.florangoutang.deezertest.interfaceadapter.album.detail.model.AlbumDetailViewModel
+import com.florangoutang.deezertest.util.loadUrl
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_album_detail.*
 import javax.inject.Inject
 
 class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
@@ -43,6 +46,8 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        initAdapter()
+
         presenter.attachView(this)
         albumId?.let {  presenter.getAlbumDetail(it) }
     }
@@ -54,15 +59,23 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
     }
 
     override fun albumDetailError(message: String?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun showLoading(visible: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
-    override fun showAlbumDetail(list: AlbumDetailViewModel) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel) {
+        (songList.adapter as SongListAdapter).songList = albumDetailViewModel.songList.toMutableList()
+        albumDetailCover.loadUrl(albumDetailViewModel.coverUrl, R.drawable.album_placeholder)
+    }
+
+    private fun initAdapter() {
+        if (songList.adapter == null) {
+            songList.layoutManager = LinearLayoutManager(context)
+            songList.adapter = SongListAdapter()
+        }
     }
 
 }

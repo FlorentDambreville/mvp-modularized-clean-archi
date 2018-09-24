@@ -1,5 +1,7 @@
 package com.florangoutang.deezertest.data
 
+import com.florangoutang.deezertest.entity.Album
+import com.florangoutang.deezertest.interfaceadapter.album.detail.model.AlbumDetailRemoteModel
 import com.florangoutang.deezertest.interfaceadapter.album.list.model.AlbumListRemoteModel
 import io.reactivex.Flowable
 import okhttp3.OkHttpClient
@@ -8,16 +10,20 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
-interface AlbumListRetrofitDataSource {
+interface AlbumRetrofitDataSource {
 
     @GET("/2.0/user/2529/albums")
     fun fetchAlbumList(@Query("index") offset: Int): Flowable<AlbumListRemoteModel>
 
+    @GET("/2.0/album/{album_id}")
+    fun fetchAlbumDetail(@Path("album_id") albumId: Int): Flowable<AlbumDetailRemoteModel>
+
     class AlbumRetrofitApiBuilder {
 
-        private val deezerApi: AlbumListRetrofitDataSource
+        private val deezerApi: AlbumRetrofitDataSource
 
         init {
             // Add interceptors (with API KEY and Logging Level) && build httpclient
@@ -40,10 +46,10 @@ interface AlbumListRetrofitDataSource {
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build()
 
-            deezerApi = retrofit.create(AlbumListRetrofitDataSource::class.java)
+            deezerApi = retrofit.create(AlbumRetrofitDataSource::class.java)
         }
 
-        fun getDeezerApi(): AlbumListRetrofitDataSource {
+        fun getDeezerApi(): AlbumRetrofitDataSource {
             return deezerApi
         }
 
