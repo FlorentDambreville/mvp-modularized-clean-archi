@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <dimen name="shrine_toolbar_offset_start">4dp</dimen>
-    <dimen name="shrine_toolbar_offset_top">4dp</dimen>
-    <dimen name="shrine_toolbar_image_offset_top">4dp</dimen>
-    <dimen name="shrine_toolbar_collapsed_height">4dp</dimen>
-    <dimen name="tall_toolbar_height">28dp</dimen>
-</resources>

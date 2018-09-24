@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class AlbumDetailRemoteModel(val id: Int?,
                                   val title: String?,
-                                  @SerializedName("cover_medium") val coverUrl: String?,
+                                  @SerializedName("cover_big") val coverUrl: String?,
                                   val artist: AlbumArtist?,
                                   val tracks: Tracks?) {
 
