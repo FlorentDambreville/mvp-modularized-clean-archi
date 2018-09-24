@@ -10,7 +10,7 @@ class AlbumDetailTransformer {
     fun albumRemoteToAlbum(albumDetailRemoteModel: AlbumDetailRemoteModel): Album {
         with(albumDetailRemoteModel) {
             val songList = mutableListOf<String>()
-            tracks?.data?.forEach { songList.add(it.toString().emptyOrValue()) }
+            tracks?.data?.forEach { songList.add(it.toString()) }
             return Album(id.zeroOrValue(),
                     coverUrl.emptyOrValue(),
                     title.emptyOrValue(),

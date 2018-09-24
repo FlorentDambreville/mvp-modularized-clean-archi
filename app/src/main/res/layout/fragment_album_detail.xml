@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightPrimaryColor"
+    android:background="@android:color/white"
     tools:context=".ui.AlbumDetailFragment">
 
     <android.support.design.widget.CoordinatorLayout
@@ -16,7 +16,8 @@
             android:id="@+id/songList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="12dp"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             />
 
         <android.support.design.widget.AppBarLayout
@@ -25,9 +26,11 @@
             android:fitsSystemWindows="true" >
 
             <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:expandedTitleTextAppearance="@style/TextViewTitle"
                 android:fitsSystemWindows="true">
 
                 <ImageView

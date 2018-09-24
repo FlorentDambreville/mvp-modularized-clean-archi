@@ -1,6 +1,7 @@
 package com.florangoutang.deezertest.ui
 
 import android.os.Bundle
+import android.support.v7.recyclerview.R.attr.layoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,9 @@ import com.florangoutang.deezertest.util.loadUrl
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_album_detail.*
 import javax.inject.Inject
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
 
@@ -47,6 +51,7 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
         super.onActivityCreated(savedInstanceState)
 
         initAdapter()
+        initRecyclerView()
 
         presenter.attachView(this)
         albumId?.let {  presenter.getAlbumDetail(it) }
@@ -68,7 +73,9 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
 
     override fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel) {
         (songList.adapter as SongListAdapter).songList = albumDetailViewModel.songList.toMutableList()
+        songList.adapter.notifyDataSetChanged()
         albumDetailCover.loadUrl(albumDetailViewModel.coverUrl, R.drawable.album_placeholder)
+        collapsingToolbar.title = albumDetailViewModel.title
     }
 
     private fun initAdapter() {
@@ -76,6 +83,13 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
             songList.layoutManager = LinearLayoutManager(context)
             songList.adapter = SongListAdapter()
         }
+    }
+
+    fun initRecyclerView() {
+        val dividerItemDecoration = DividerItemDecoration(
+                songList.context,
+                LinearLayoutManager.VERTICAL)
+        songList.addItemDecoration(dividerItemDecoration)
     }
 
 }
