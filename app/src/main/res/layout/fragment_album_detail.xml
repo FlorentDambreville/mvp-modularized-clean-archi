@@ -23,15 +23,19 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true" >
+            >
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                app:contentScrim="@color/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:collapsedTitleTextAppearance="@style/TextViewTitle"
                 app:expandedTitleTextAppearance="@style/TextViewTitle"
-                android:fitsSystemWindows="true">
+                app:expandedTitleMarginEnd="64dp"
+                app:expandedTitleMarginStart="48dp"
+                >
 
                 <ImageView
                     android:id="@+id/albumDetailCover"
@@ -40,11 +44,12 @@
                     android:adjustViewBounds="true"
                     android:tint="@color/colorPrimary_opa60"
                     android:scaleType="centerCrop"
+                    app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
                     app:layout_collapseMode="parallax"
-                    app:layout_collapseParallaxMultiplier="0.5"
                     />
 
                 <android.support.v7.widget.Toolbar
+                    style="@style/TextViewTitle"
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
