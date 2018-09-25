@@ -8,7 +8,8 @@ interface AlbumDetailContract {
 
     interface View : BaseView {
         fun albumDetailError(message: String?)
-        fun showLoading(visible: Boolean)
+        fun showLoading()
+        fun hideLoading()
         fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel)
     }
 

@@ -66,8 +66,12 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
 
     }
 
-    override fun showLoading(visible: Boolean) {
+    override fun showLoading() {
+        detailLoader.visibility = View.VISIBLE
+    }
 
+    override fun hideLoading() {
+        detailLoader.visibility = View.GONE
     }
 
     override fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel) {
