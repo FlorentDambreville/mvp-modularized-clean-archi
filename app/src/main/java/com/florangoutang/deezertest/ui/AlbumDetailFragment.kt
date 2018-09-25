@@ -12,6 +12,9 @@ import com.florangoutang.deezertest.util.loadUrl
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_album_detail.*
 import javax.inject.Inject
+import android.support.v7.widget.DividerItemDecoration
+
+
 
 class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
 
@@ -47,6 +50,7 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
         super.onActivityCreated(savedInstanceState)
 
         initAdapter()
+        initRecyclerView()
 
         presenter.attachView(this)
         albumId?.let {  presenter.getAlbumDetail(it) }
@@ -59,16 +63,27 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
     }
 
     override fun albumDetailError(message: String?) {
-
+        errorDetailTextView.visibility = View.VISIBLE
+        errorDetailTextView.append("\n")
+        errorDetailTextView.append(message)
     }
 
-    override fun showLoading(visible: Boolean) {
+    override fun showLoading() {
+        errorDetailTextView.visibility = View.GONE
+        detailLoader.visibility = View.VISIBLE
+    }
 
+    override fun hideLoading() {
+        errorDetailTextView.visibility = View.GONE
+        detailLoader.visibility = View.GONE
     }
 
     override fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel) {
+        errorDetailTextView.visibility = View.GONE
         (songList.adapter as SongListAdapter).songList = albumDetailViewModel.songList.toMutableList()
+        songList.adapter.notifyDataSetChanged()
         albumDetailCover.loadUrl(albumDetailViewModel.coverUrl, R.drawable.album_placeholder)
+        collapsingToolbar.title = albumDetailViewModel.title
     }
 
     private fun initAdapter() {
@@ -76,6 +91,13 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
             songList.layoutManager = LinearLayoutManager(context)
             songList.adapter = SongListAdapter()
         }
+    }
+
+    private fun initRecyclerView() {
+        val dividerItemDecoration = DividerItemDecoration(
+                songList.context,
+                LinearLayoutManager.VERTICAL)
+        songList.addItemDecoration(dividerItemDecoration)
     }
 
 }

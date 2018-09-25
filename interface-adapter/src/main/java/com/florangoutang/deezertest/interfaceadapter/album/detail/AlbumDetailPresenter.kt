@@ -22,11 +22,11 @@ class AlbumDetailPresenterImpl(val interactor: AlbumDetailInteractor,
     }
 
     override fun getAlbumDetail(albumId: Int) {
-        view?.showLoading(true)
+        view?.showLoading()
         subscriptions.add(interactor.getAlbumDetail(albumId)
                 .subscribeOn(schedulersProvider.computation())
                 .observeOn(schedulersProvider.ui())
-                .doFinally { view?.showLoading(false) }
+                .doFinally { view?.hideLoading() }
                 .subscribe({ album: Album ->
                     view?.showAlbumDetail(transformer.albumToAlbumDetailViewModel(album))
                 },

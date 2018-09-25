@@ -27,6 +27,8 @@ class AlbumListAdapter(private val onAlbumClickedListener: AlbumListFragment.OnA
         fun bind(albumListViewModel: AlbumListViewModel, onAlbumClickedListener: AlbumListFragment.OnAlbumClickedListener) = with(itemView) {
             albumImage.loadUrl(albumListViewModel.coverUrl, R.drawable.album_placeholder)
             albumImage.setOnClickListener { onAlbumClickedListener.onAlbumClicked(albumListViewModel.id)}
+            albumTitle.text = albumListViewModel.title
+            albumArtist.text = albumListViewModel.artistName
         }
     }
 }
