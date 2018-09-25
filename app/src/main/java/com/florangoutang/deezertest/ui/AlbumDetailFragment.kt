@@ -1,7 +1,6 @@
 package com.florangoutang.deezertest.ui
 
 import android.os.Bundle
-import android.support.v7.recyclerview.R.attr.layoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -85,7 +84,7 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
         }
     }
 
-    fun initRecyclerView() {
+    private fun initRecyclerView() {
         val dividerItemDecoration = DividerItemDecoration(
                 songList.context,
                 LinearLayoutManager.VERTICAL)
