@@ -63,18 +63,23 @@ class AlbumDetailFragment : DaggerFragment(), AlbumDetailContract.View {
     }
 
     override fun albumDetailError(message: String?) {
-
+        errorDetailTextView.visibility = View.VISIBLE
+        errorDetailTextView.append("\n")
+        errorDetailTextView.append(message)
     }
 
     override fun showLoading() {
+        errorDetailTextView.visibility = View.GONE
         detailLoader.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
+        errorDetailTextView.visibility = View.GONE
         detailLoader.visibility = View.GONE
     }
 
     override fun showAlbumDetail(albumDetailViewModel: AlbumDetailViewModel) {
+        errorDetailTextView.visibility = View.GONE
         (songList.adapter as SongListAdapter).songList = albumDetailViewModel.songList.toMutableList()
         songList.adapter.notifyDataSetChanged()
         albumDetailCover.loadUrl(albumDetailViewModel.coverUrl, R.drawable.album_placeholder)
